@@ -1,4 +1,5 @@
 # Grafos
+**Para grafos não-dirigidos
 
 * [ ] bool isAdjacente (Vertice v1, Vertice v2); -- Ana
 * [ ] int getGrau (Vertice v1); -- Ana 
@@ -12,3 +13,10 @@
 * [ ] bool isUnicursal ();  
 * [ ] Grafo getAGMPrim (Vertice v1)   
 * [ ] Grafo getAGMKruskal (Vertice v1)  
+* [ ] int getCutVertices ()
+
+**Para grafos dirigidos:
+
+* [ ] int getGrauEntrada (Vertice v1);
+* [ ] int getGrauSaida (Vertice v1);
+* [ ] bool hasCiclo ();
