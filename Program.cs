@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace Grafos
 {
@@ -6,7 +7,38 @@ namespace Grafos
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            string[] leitor = File.ReadAllLines(@"D:\User\Desktop\New folder\Grafos\teste.txt");
+            Grafo nv = new Grafo(Convert.ToInt32(leitor[0]) + 1);
+            foreach (string linha in leitor)
+            {
+                string[] corte = linha.Split(';');
+
+
+                int Vert1;
+                int Vert2;
+                int peso;
+
+                if (corte.Length == 1)
+                {
+
+
+                }
+                else
+                {
+                    Vert1 = Convert.ToInt32(corte[0]);
+                    Vert2 = Convert.ToInt32(corte[1]);
+                    peso = Convert.ToInt32(corte[2]);
+
+                    nv.adicionarAresta(Vert1, Vert2, peso);
+                }
+
+            }
+            nv.printarmatriz();
+
+
+            Console.ReadKey();
+
         }
+
     }
 }
