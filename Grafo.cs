@@ -26,9 +26,16 @@ namespace Grafos
 
         public void adicionarAresta(int Vert1, int Vert2, int peso)
         {
-            matadj[Vert1, Vert2] = peso;
-            matadj[Vert2, Vert1] = peso;
+            matadj[Vert1, Vert2] = 1;
+            matadj[Vert2, Vert1] = 1;
             Aresta aresta = new Aresta(Vert1, Vert2, peso);
+            arestas.Add(aresta);
+        }
+        public void adicionarArestaDirigida(int Vert1, int Vert2, int peso, int direcao)
+        {
+            matadj[Vert1, Vert2] = 1;
+            matadj[Vert2, Vert1] = 1;
+            Aresta aresta = new Aresta(Vert1, Vert2, peso, direcao);
             arestas.Add(aresta);
         }
         public void printarmatriz()
