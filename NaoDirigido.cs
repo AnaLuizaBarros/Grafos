@@ -5,7 +5,7 @@ using System.Text;
 namespace Grafos
 {
     class NaoDirigido
-    {
+    {/*
         Grafo grafo = new Grafo();
    
         //Dado a definição "Vértices com grau 0 são chamados isolados", compreendemos aqui que caso o peso da aresta seja 
@@ -44,5 +44,5 @@ namespace Grafos
         {
             //Em implementação
         }
-    }
+    */}
 }
