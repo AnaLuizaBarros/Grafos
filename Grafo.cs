@@ -12,6 +12,11 @@ namespace Grafos
 
         public int NumVertice { get; set; }
 
+        public Grafo()
+        {
+
+        }
+
         public Grafo(int NumVertice)
         {
             this.numVertice = NumVertice;
@@ -50,6 +55,10 @@ namespace Grafos
             }
         }
 
+        public List<Aresta> GetArestas()
+        {
+            return this.arestas;
+        }
 
     }
 }
