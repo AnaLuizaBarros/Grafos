@@ -6,7 +6,7 @@ namespace Grafos
 {
     class Grafo
     {
-        public List<Aresta> arestas = new List<Aresta>();        
+        public List<Aresta> arestas = new List<Aresta>();
         private int[,] matadj;
         private int numVertice;
 
@@ -34,9 +34,9 @@ namespace Grafos
             matadj[Vert1, Vert2] = 1;
             matadj[Vert2, Vert1] = 1;
             Aresta aresta = new Aresta(Vert1, Vert2, peso);
-           
+
             arestas.Add(aresta);
-           
+
         }
         public void adicionarArestaDirigida(int Vert1, int Vert2, int peso, int direcao)
         {
@@ -74,10 +74,26 @@ namespace Grafos
                         return true;
                     }
                 }
-               
+
             }
             return false;
         }
 
+        //Lembrando que e preciso terminar a matriz de adjacencia para fazer o grau
+        public int getGrau(int Vert1)
+        {
+            int grau = 0;      
+                for (int j = 1; j < this.numVertice; j++)
+                {
+                    if (matadj[Vert1, j] == 1)
+                    {
+                       grau++;
+                    }
+                }
+            
+            Console.WriteLine("Grau do vertice {0} e {1} ", Vert1, grau);
+            return grau;
+
+        }
     }
 }
