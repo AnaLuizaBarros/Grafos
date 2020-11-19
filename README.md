@@ -5,8 +5,8 @@
 
 **Para grafos não-dirigidos**
 
-* [ ] bool isAdjacente (Vertice v1, Vertice v2); -- Ana
-* [ ] int getGrau (Vertice v1); -- Ana 
+* [x] bool isAdjacente (Vertice v1, Vertice v2); -- Jonathan
+* [x] int getGrau (Vertice v1); -- Ana 
 * [ ] bool isIsolado (Vertice v1);  -- Victor
 * [ ] bool isPendente (Vertice v1);  -- Lucas
 * [ ] bool isRegular ();  -- Douglas
