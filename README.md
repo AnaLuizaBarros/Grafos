@@ -1,7 +1,7 @@
 # Grafos
 
 **Entrada/Leitura**
-* [ ] Fazer a entrada e leitura dos arquivos de teste - Jonathan
+* [x] Fazer a entrada e leitura dos arquivos de teste - Jonathan
 
 **Para grafos não-dirigidos**
 
