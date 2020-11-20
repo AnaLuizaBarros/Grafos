@@ -13,7 +13,7 @@
 * [ ] bool isNulo ();  -- Victor
 * [ ] bool isCompleto ();  -- Douglas
 * [ ] bool isConexo ();  -- Victor
-* [x] bool isEuleriano (); -- Ana  
+* [ ] bool isEuleriano (); -- Ana  
 * [ ] bool isUnicursal ();  -- Douglas
 * [ ] Grafo getAGMPrim (Vertice v1)   -- Lucas
 * [ ] Grafo getAGMKruskal (Vertice v1)  -- Lucas

@@ -52,18 +52,21 @@ namespace Grafos
         }
 
         //Grafo euleriano precisa ser conexo e ter os vertices grau par
-        public bool isEuleriano() {
+        public bool isEuleriano()
+        {
             int grauPar = 0;
             bool euleriano = false;
 
-           for (int i = 1; i < numVertice; i++)
+            for (int i = 1; i < numVertice; i++)
             {
-               var grau = getGrau(i);
-                if (grau % 2 == 0) {
+                var grau = getGrau(i);
+                if (grau % 2 == 0)
+                {
                     grauPar++;
-                }            
+                }
             }
-            if (isConexo() && (grauPar == numVertice)) {
+            if (isConexo() && (grauPar == numVertice))
+            {
                 euleriano = true;
             }
             return euleriano;
