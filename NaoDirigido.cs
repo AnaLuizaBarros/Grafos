@@ -4,9 +4,12 @@ using System.Text;
 
 namespace Grafos
 {
-    class NaoDirigido
-    {/*
-        Grafo grafo = new Grafo();
+    class NaoDirigido : Grafo
+    {
+
+
+        /*
+      
    
         //Dado a definição "Vértices com grau 0 são chamados isolados", compreendemos aqui que caso o peso da aresta seja 
         //grau 0 ou nulo, ele é um grafo isolado.
@@ -40,9 +43,30 @@ namespace Grafos
             return _ = cont < 1  ? true : false;
         }
 
+     
+    */
         public bool isConexo()
         {
+            return true;
             //Em implementação
         }
-    */}
+
+        //Grafo euleriano precisa ser conexo e ter os vertices grau par
+        public bool isEuleriano() {
+            int grauPar = 0;
+            bool euleriano = false;
+
+           for (int i = 1; i < numVertice; i++)
+            {
+               var grau = getGrau(i);
+                if (grau % 2 == 0) {
+                    grauPar++;
+                }            
+            }
+            if (isConexo() && (grauPar == numVertice)) {
+                euleriano = true;
+            }
+            return euleriano;
+        }
+    }
 }

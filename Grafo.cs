@@ -8,7 +8,7 @@ namespace Grafos
     {
         public List<Aresta> arestas = new List<Aresta>();
         private int[,] matadj;
-        private int numVertice;
+        public int numVertice;
 
         public int NumVertice { get; set; }
 
@@ -90,8 +90,7 @@ namespace Grafos
                        grau++;
                     }
                 }
-            
-            Console.WriteLine("Grau do vertice {0} e {1} ", Vert1, grau);
+            //Console.WriteLine("Grau do vertice {0} e {1} ", Vert1, grau);
             return grau;
 
         }

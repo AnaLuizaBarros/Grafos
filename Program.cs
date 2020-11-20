@@ -9,6 +9,7 @@ namespace Grafos
         {
             string[] leitor = File.ReadAllLines("teste.txt");
             Grafo nv = new Grafo(Convert.ToInt32(leitor[0]) + 1);
+            NaoDirigido ng = new NaoDirigido();
             foreach (string linha in leitor)
             {
                 string[] corte = linha.Split(';');
@@ -54,7 +55,8 @@ namespace Grafos
 
                         nv.adicionarAresta(Vert1, Vert2, peso);
                         nv.isAdjacente(Vert1, Vert2);
-                        nv.getGrau(1); // apenas teste
+                                     
+
                     }
                 }
 
@@ -63,8 +65,10 @@ namespace Grafos
 
 
             }
+          
             nv.printarmatriz();
-            
+            ng.isEuleriano();
+
 
 
             Console.ReadKey();
