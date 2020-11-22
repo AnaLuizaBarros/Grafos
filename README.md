@@ -9,12 +9,12 @@
 * [x] int getGrau (Vertice v1); -- Ana 
 * [ ] bool isIsolado (Vertice v1);  -- Victor
 * [ ] bool isPendente (Vertice v1);  -- Lucas
-* [ ] bool isRegular ();  -- Douglas
+* [x] bool isRegular ();  -- Douglas
 * [ ] bool isNulo ();  -- Victor
-* [ ] bool isCompleto ();  -- Douglas
+* [x] bool isCompleto ();  -- Douglas
 * [x] bool isConexo ();  -- Victor
 * [x] bool isEuleriano (); -- Ana  
-* [ ] bool isUnicursal ();  -- Douglas
+* [x] bool isUnicursal ();  -- Douglas
 * [ ] Grafo getAGMPrim (Vertice v1)   -- Lucas
 * [ ] Grafo getAGMKruskal (Vertice v1)  -- Lucas
 * [ ] int getCutVertices () -- Jonathan

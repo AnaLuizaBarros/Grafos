@@ -71,5 +71,75 @@ namespace Grafos
             }
             return euleriano;
         }
+
+        public bool IsAdjacente(int vert1, int vert2)
+        {
+            int V1 = vert1;
+            int V2 = vert2;
+            return true;
+        }
+
+        // Um grafo regular é um grafo onde cada vértice tem o mesmo número de adjacências
+        public bool isRegular()
+        {
+            bool regular = true;
+            int grau_1_Vert = this.getGrau(vertices[0]);
+            for (int i = 1; i < vertices.Count; i++)
+            {
+                if (this.getGrau(vertices[i]) != grau_1_Vert)
+                {
+                    regular = false;
+                }
+            }
+            return regular;
+        }
+
+        // Um grafo completo é um grafo simples em que todo vértice é adjacente a todos os outros vértices
+        public bool isCompleto()
+        {
+            bool completo = true;
+            for (int i = 0; i < vertices.Count; i++)
+            {
+                for (int cont = 0; cont < vertices.Count; cont++)
+                {
+                    if (cont == i)
+                        continue;
+                    if (!this.IsAdjacente(vertices[i], vertices[cont]))
+                    {
+                        completo = false;
+                    }
+                }
+            }
+            return completo;
+        }
+
+        // Um grafo é dito unicursal ou semi-euleriano se ele possui pelo menos um trajeto euleriano aberto
+        // Um Grafo é Unicursal se e somente se ele possuir exatamente 2 vértices de grau ímpar
+        public bool isUnicursal()
+        {
+            bool unicursal = false;
+            int contImpar = 0;
+            bool eureliano = this.isEuleriano();
+            if (eureliano)
+            {
+                for (int i = 1; i < numVertice; i++)
+                {
+                    var grau = getGrau(i);
+                    if (grau % 2 != 0)
+                    {
+                        contImpar++;
+                    }
+                }
+                if (contImpar == 2)
+                {
+                    unicursal = true;
+                }
+            }
+            return unicursal;
+        }
+
+
+
+
     }
 }
