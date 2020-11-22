@@ -7,7 +7,7 @@ namespace Grafos
     {
         static void Main(string[] args)
         {
-            string[] leitor = File.ReadAllLines(@"D:\User\Desktop\New folder\Grafos\GrafosTeste\teste.txt");
+            string[] leitor = File.ReadAllLines("teste.txt");
             Grafo nv = new Grafo(Convert.ToInt32(leitor[0]) + 1);
             foreach (string linha in leitor)
             {
@@ -52,7 +52,8 @@ namespace Grafos
                         Vert1 = Convert.ToInt32(corte[0]);
                         Vert2 = Convert.ToInt32(corte[1]);
                         peso = Convert.ToInt32(corte[2]);
-
+                        nv.adicionarVertice(Vert1);
+                        nv.adicionarVertice(Vert2);
                         nv.adicionarAresta(Vert1, Vert2, peso);
                         nv.isAdjacente(Vert1, Vert2);
                         nv.getGrau(1); // apenas teste
@@ -67,7 +68,7 @@ namespace Grafos
 
             }
             nv.printarmatriz();
-            
+            nv.buscaEmProfundidade();
             
             
 
