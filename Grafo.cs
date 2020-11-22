@@ -9,12 +9,14 @@ namespace Grafos
     {
         public List<Aresta> arestas = new List<Aresta>();
         public List<int> vertices = new List<int>();
-        public LinkedList<int>[] arestas2 = new LinkedList<int>[5];
+       
         private int[,] matadj;
         public int numVertice;
         private int[] tDescoberta;
         private int[] tTermino;
         private int[] pais;
+        private int[] componente;
+        private int componentes;
        
 
         public int NumVertice { get; set; }
@@ -32,6 +34,8 @@ namespace Grafos
             tDescoberta = new int[numVertice];
             tTermino = new int[numVertice];
             pais = new int[numVertice];
+            componente = new int[numVertice];
+
 
             for (int i = 1; i < numVertice; i++)
                 for (int j = 1; j < numVertice; j++)
@@ -59,11 +63,7 @@ namespace Grafos
             matadj[Vert2, Vert1] = 1;
             Aresta aresta = new Aresta(Vert1, Vert2, peso);
             arestas.Add(aresta);
-            if(arestas2[Vert1] == null)
-            {
-                arestas2[Vert1] = new LinkedList<int>();
-            }
-            arestas2[Vert1].AddLast(Vert2);
+            
             
         }
         public void adicionarArestaDirigida(int Vert1, int Vert2, int peso, int direcao)
@@ -160,7 +160,8 @@ namespace Grafos
             tempo++;
             tDescoberta[u] = tempo;
             cores[u] = cinza;
-
+            componente[u] = componentes;
+           
             for (int k = 1; k < adjacentes(u).Count; k++)
             {
                 v = adjacentes(u)[k];
@@ -199,7 +200,9 @@ namespace Grafos
                 tDescoberta[i] = -1;
                 tTermino[i] = -1;
                 pais[i] = -1;
+                componente[i] = -1;
             }
+            componentes = 1;
             //para cada vertice visita em profundidade os vizinhos nao visitados
             for (int u = 1; u < numVertice; u++)
             {
@@ -207,6 +210,7 @@ namespace Grafos
                 if (cores[u] == branco)
                 {
                     tempo = visitaDFS(u, tempo, cores);
+                    componentes++;
                 }
                 else if (cores[u] == cinza)
                 {
@@ -215,6 +219,27 @@ namespace Grafos
             }
 
             return pais;
+        }
+        public bool isConexo()
+        {
+            int aux = 0;
+            buscaEmProfundidade();
+            for (int i = 1; i < numVertice; i++)
+            {
+                aux = componente[i];
+            }
+            if (aux > 1)
+            {
+                Console.WriteLine("\nO grafo nao e conexo");
+                return false;
+            }
+            else
+            {
+                Console.WriteLine(aux);
+                Console.WriteLine("\nO grafo e conexo");
+                return true;
+            }
+            return false;
         }
     }
 }

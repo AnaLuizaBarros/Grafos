@@ -57,7 +57,7 @@ namespace Grafos
                         nv.adicionarVertice(Vert2);
                         nv.adicionarAresta(Vert1, Vert2, peso);
                         nv.isAdjacente(Vert1, Vert2);                        
-                        nv.getGrau(Vert1); // apenas teste
+                        nv.getGrau(Vert1); 
                         nv.getGrau(Vert2);
                         nv.adjacentes(Vert1);
                        
@@ -74,6 +74,7 @@ namespace Grafos
                 
                 Console.WriteLine("O grau do vertice {0} = {1}", item, nv.getGrau(item));
             }
+            nv.isConexo();
             nv.printarmatriz();
            
             
