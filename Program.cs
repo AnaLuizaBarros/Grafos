@@ -7,9 +7,9 @@ namespace Grafos
     {
         static void Main(string[] args)
         {
-            string[] leitor = File.ReadAllLines("teste.txt");
+            string[] leitor = File.ReadAllLines(@"D:\User\Desktop\New folder\Grafos\GrafosTeste\teste.txt");
             Grafo nv = new Grafo(Convert.ToInt32(leitor[0]) + 1);
-            
+            bool naodirigido = true;
             foreach (string linha in leitor)
             {
                 string[] corte = linha.Split(';');
@@ -27,6 +27,7 @@ namespace Grafos
                     }
                     else
                     {
+                        naodirigido = false;
                         Vert1 = Convert.ToInt32(corte[0]);
                         Vert2 = Convert.ToInt32(corte[1]);
                         peso = Convert.ToInt32(corte[2]);
@@ -69,13 +70,21 @@ namespace Grafos
 
 
             }
-            foreach (var item in nv.vertices)
+            if (naodirigido)
             {
-                
-                Console.WriteLine("O grau do vertice {0} = {1}", item, nv.getGrau(item));
+                foreach (var item in nv.vertices)
+                {
+
+                    Console.WriteLine("O grau do vertice {0} = {1}", item, nv.getGrau(item));
+                }
+                nv.isConexo();
+                nv.printarmatriz();
             }
-            nv.isConexo();
-            nv.printarmatriz();
+            else
+            {
+                nv.printarmatriz();
+            }
+           
            
             
             

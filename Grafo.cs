@@ -17,6 +17,8 @@ namespace Grafos
         private int[] pais;
         private int[] componente;
         private int componentes;
+        private bool[] ponto;
+        private bool[,] ponte;
        
 
         public int NumVertice { get; set; }
@@ -149,8 +151,11 @@ namespace Grafos
             return grau;
 
         }
-       
-      
+
+        public void acharcutpoint()
+        {
+
+        }
 
         public int visitaDFS(int u, int tempo, int[] cores)
         {
@@ -173,7 +178,7 @@ namespace Grafos
                 }
                 else if (cores[v] == cinza)
                 {
-                    //Console.WriteLine("*Aresta de retorno: (" + u + "," + v + ")");
+                    Console.WriteLine("*Aresta de retorno: (" + u + "," + v + ")");
                 }
 
             }
@@ -220,6 +225,7 @@ namespace Grafos
 
             return pais;
         }
+        
         public bool isConexo()
         {
             int aux = 0;
@@ -241,5 +247,49 @@ namespace Grafos
             }
             return false;
         }
+        /*public void tarjan()
+        {
+            int cont = 0;
+            int tempo;
+            int branco = 0, cinza = 1, preto = 2;
+            int[] cores = new int[numVertice];
+            for (int i = 1; i < numVertice; i++)
+            {
+                ponto[i] = false;
+                cores[i] = branco;
+            }
+            for (int i = 1; i < numVertice; i++)
+            {
+                for (int j = 1; j < numVertice; j++)
+                {
+                    ponte[i, j] = false;
+                }
+            }
+            for (int i = 1; i < numVertice; i++)
+            {
+                if(cores[i] == branco)
+                {
+                    cont = 0;
+                    visitaTarjan();
+                }
+                if( cont >= 2)
+                {
+                    ponto[i] = true;
+                }
+                else
+                {
+                    ponto[i] = false;
+                }
+            }
+        }
+        public void visitaTarjan()
+        {
+                
+        }*/
+        public int getCutVertices()
+        {
+            return 0;
+        }
+        
     }
 }
