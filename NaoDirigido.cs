@@ -59,7 +59,7 @@ namespace Grafos
 
             for (int i = 1; i < numVertice; i++)
             {
-                var grau = getGrau(i);
+                var grau = getGrau(new Vertice(i));
                 if (grau % 2 == 0)
                 {
                     grauPar++;
@@ -71,11 +71,10 @@ namespace Grafos
             }
             return euleriano;
         }
-
-        public bool IsAdjacente(int vert1, int vert2)
+        public bool IsAdjacente(Vertice vert1, Vertice vert2)
         {
-            int V1 = vert1;
-            int V2 = vert2;
+            Vertice V1 = vert1;
+            Vertice V2 = vert2;
             return true;
         }
 
@@ -124,7 +123,7 @@ namespace Grafos
             {
                 for (int i = 1; i < numVertice; i++)
                 {
-                    var grau = getGrau(i);
+                    var grau = getGrau(new Vertice(i));
                     if (grau % 2 != 0)
                     {
                         contImpar++;
@@ -137,9 +136,5 @@ namespace Grafos
             }
             return unicursal;
         }
-
-
-
-
     }
 }

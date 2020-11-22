@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Grafos
 {
-    class Vertice
+    public class Vertice
     {
         private int vert;
         private int grau;
@@ -16,8 +16,23 @@ namespace Grafos
             this.vert = vert;
             this.grau = grau;
         }
+        public Vertice(int vert)
+        {
+            this.vert = vert;
+        }
 
         public int Grau { get; set; }
         public int Vert { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            if ((obj as Vertice).Vert == this.vert && (obj as Vertice).Grau == this.grau) return true;
+            else return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(vert, grau);
+        }
     }
 }

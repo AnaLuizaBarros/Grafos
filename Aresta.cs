@@ -7,18 +7,18 @@ namespace Grafos
     class Aresta
     {
         private int peso;
-        private int vert1;
-        private int vert2;
+        private Vertice vert1;
+        private Vertice vert2;
         private int direcao;
 
-        public Aresta(int vert1, int vert2, int peso)
+        public Aresta(Vertice vert1, Vertice vert2, int peso)
         {
             this.vert1 = vert1;
             this.vert2 = vert2;
             this.peso = peso;
         }
 
-        public Aresta(int vert1, int vert2, int peso, int direcao)
+        public Aresta(Vertice vert1, Vertice vert2, int peso, int direcao)
         {
             this.vert1 = vert1;
             this.vert2 = vert2;
@@ -26,9 +26,9 @@ namespace Grafos
             this.direcao = direcao;
         }
 
-        public int Vert1 { get; set; }
+        public Vertice Vert1 { get; set; }
 
-        public int Vert2 { get; set; }
+        public Vertice Vert2 { get; set; }
 
         public int Peso { get; set; }
 
