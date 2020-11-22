@@ -18,8 +18,7 @@ namespace Grafos
         private Vertice[] pais;
         private int[] componente;
         private int componentes;
-        private bool[] ponto;
-        private bool[,] ponte;
+        private bool ciclo;
        
 
         public int NumVertice { get; set; }
@@ -162,6 +161,7 @@ namespace Grafos
 
         public int visitaDFS(Vertice u, int tempo, int[] cores)
         {
+  
             // ArrayList<Objects> prop = new ArrayList<>();
             int branco = 0, cinza = 1, preto = 2;
             Vertice v;
@@ -181,7 +181,8 @@ namespace Grafos
                 }
                 else if (cores[v.Vert] == cinza)
                 {
-                    Console.WriteLine("*Aresta de retorno: (" + u.Vert + "," + v.Vert + ")");
+                    ciclo = true;
+                    //Console.WriteLine("*Aresta de retorno: (" + u.Vert + "," + v.Vert + ")");
                 }
 
             }
@@ -197,6 +198,7 @@ namespace Grafos
        
         public Vertice[] buscaEmProfundidade()
         {
+        
             int branco = 0, cinza = 1, preto = 2;
             int[] cores = new int[numVertice];
             //inicializacoes
@@ -347,6 +349,44 @@ namespace Grafos
         {
             return 0;
         }
-        
+
+
+
+        public int getGrauEntrada(Vertice v1) {
+            int entrada = 0;
+            foreach (var item in arestas)
+            {
+           
+                if ( item.Direcao == 1 && item.Vert2.Vert == v1.Vert) {
+                    entrada++;
+                }
+                if (item.Direcao == -1 && item.Vert1.Vert == v1.Vert) {
+                    entrada++;
+                }
+                
+            }
+            return entrada;
+        }
+        public int getGrauSaida(Vertice v1)
+        {
+            int saida = 0;
+            foreach (var item in arestas)
+            {
+                if (item.Direcao == 1 && item.Vert1.Vert == v1.Vert)
+                {
+                    saida++;
+                }
+                if (item.Direcao == -1 && item.Vert2.Vert == v1.Vert)
+                {
+                    saida++;
+                }
+
+            }
+            return saida;
+        }
+        public bool hasCiclo() {
+            buscaEmProfundidade();
+            return ciclo;
+        }
     }
 }
