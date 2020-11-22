@@ -21,8 +21,8 @@ namespace Grafos
             this.vert = vert;
         }
 
-        public int Grau { get; set; }
-        public int Vert { get; set; }
+        public int Grau { get { return this.grau; } }
+        public int Vert { get { return this.vert; } }
 
         public override bool Equals(object obj)
         {

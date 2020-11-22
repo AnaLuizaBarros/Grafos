@@ -7,7 +7,7 @@ namespace Grafos
     {
         static void Main(string[] args)
         {
-            string[] leitor = File.ReadAllLines(@"D:\User\Desktop\New folder\Grafos\GrafosTeste\teste.txt");
+            string[] leitor = File.ReadAllLines(@"../../../Teste.txt");
             Grafo nv = new Grafo(Convert.ToInt32(leitor[0]) + 1);
             bool naodirigido = true;
             foreach (string linha in leitor)
@@ -15,8 +15,8 @@ namespace Grafos
                 string[] corte = linha.Split(';');
                 if (corte.Length > 3)
                 {
-                    int Vert1;
-                    int Vert2;
+                    Vertice Vert1;
+                    Vertice Vert2;
                     int peso;
                     int direcao;
 
@@ -28,19 +28,17 @@ namespace Grafos
                     else
                     {
                         naodirigido = false;
-                        Vert1 = Convert.ToInt32(corte[0]);
-                        Vert2 = Convert.ToInt32(corte[1]);
+                        Vert1 = new Vertice(Convert.ToInt32(corte[0]));
+                        Vert2 = new Vertice(Convert.ToInt32(corte[1]));
                         peso = Convert.ToInt32(corte[2]);
                         direcao = Convert.ToInt32(corte[3]);
                         nv.adicionarArestaDirigida(Vert1, Vert2, peso, direcao);
-                        
-                        
                     }
                 }
                 else
                 {
-                    int Vert1;
-                    int Vert2;
+                    Vertice Vert1;
+                    Vertice Vert2;
                     int peso;
 
 
@@ -51,8 +49,8 @@ namespace Grafos
                     }
                     else
                     {
-                        Vert1 = Convert.ToInt32(corte[0]);
-                        Vert2 = Convert.ToInt32(corte[1]);
+                        Vert1 = new Vertice(Convert.ToInt32(corte[0]));
+                        Vert2 = new Vertice(Convert.ToInt32(corte[1]));
                         peso = Convert.ToInt32(corte[2]);
                         nv.adicionarVertice(Vert1);
                         nv.adicionarVertice(Vert2);
@@ -64,31 +62,24 @@ namespace Grafos
                        
                     }
                 }
-
-
-
-
-
             }
             if (naodirigido)
             {
                 foreach (var item in nv.vertices)
                 {
-
-                    Console.WriteLine("O grau do vertice {0} = {1}", item, nv.getGrau(item));
+                    Console.WriteLine("O grau do vertice {0} = {1}", item.Vert, nv.getGrau(item));
                 }
                 nv.isConexo();
-                nv.printarmatriz();
+                Console.WriteLine(nv.printarMatriz());
+                Grafo arvore = nv.getAGMPrim();
+                Grafo arvore2 = nv.getAGMKruskal();
+                Console.WriteLine(arvore.printarMatriz());
+                Console.WriteLine(arvore2.printarMatriz());
             }
             else
             {
-                nv.printarmatriz();
+                Console.WriteLine(nv.printarMatriz());
             }
-           
-           
-            
-            
-
 
             Console.ReadKey();
 

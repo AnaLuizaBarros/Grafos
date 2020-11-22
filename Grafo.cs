@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Grafos
@@ -8,13 +9,13 @@ namespace Grafos
     class Grafo
     {
         public List<Aresta> arestas = new List<Aresta>();
-        public List<int> vertices = new List<int>();
+        public List<Vertice> vertices = new List<Vertice>();
        
         private int[,] matadj;
         public int numVertice;
         private int[] tDescoberta;
         private int[] tTermino;
-        private int[] pais;
+        private Vertice[] pais;
         private int[] componente;
         private int componentes;
         private bool[] ponto;
@@ -35,7 +36,7 @@ namespace Grafos
             matadj = new int[numVertice, numVertice];
             tDescoberta = new int[numVertice];
             tTermino = new int[numVertice];
-            pais = new int[numVertice];
+            pais = new Vertice[numVertice];
             componente = new int[numVertice];
 
 
@@ -45,7 +46,7 @@ namespace Grafos
 
         }
 
-        public void adicionarVertice(int vertice)
+        public void adicionarVertice(Vertice vertice)
         {
             //int grau = getGrau(vertice);
             //Vertice v = new Vertice(vertice, grau);
@@ -59,50 +60,52 @@ namespace Grafos
             
             //Console.WriteLine("Numero de vertices adicionados :" +vertices.Count);    
         }
-        public void adicionarAresta(int Vert1, int Vert2, int peso)
+        public void adicionarAresta(Vertice Vert1, Vertice Vert2, int peso)
         {
-            matadj[Vert1, Vert2] = 1;
-            matadj[Vert2, Vert1] = 1;
+            matadj[Vert1.Vert, Vert2.Vert] = 1;
+            matadj[Vert2.Vert, Vert1.Vert] = 1;
             Aresta aresta = new Aresta(Vert1, Vert2, peso);
             arestas.Add(aresta);
             
             
         }
-        public void adicionarArestaDirigida(int Vert1, int Vert2, int peso, int direcao)
+        public void adicionarArestaDirigida(Vertice Vert1, Vertice Vert2, int peso, int direcao)
         {
-            matadj[Vert1, Vert2] = 1;
-            matadj[Vert2, Vert1] = 1;
+            matadj[Vert1.Vert, Vert2.Vert] = 1;
+            matadj[Vert2.Vert, Vert1.Vert] = 1;
             Aresta aresta = new Aresta(Vert1, Vert2, peso, direcao);
             arestas.Add(aresta);
             
           
         }
-        public void printarmatriz()
+        public string printarMatriz()
         {
-            Console.WriteLine("\nMatriz de adjacencia ");
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("\nMatriz de adjacencia ");
             for (int i = 1; i < this.numVertice; i++)
             {
                 for (int j = 1; j < this.numVertice; j++)
                 {
-                    Console.Write(" " + matadj[i, j] + " ");
+                    sb.Append(" " + matadj[i, j] + " ");
                 }
-                Console.WriteLine("\n ");
+                sb.AppendLine("\n ");
             }
+            return sb.ToString();
         }
 
         public List<Aresta> GetArestas()
         {
             return this.arestas;
         }
-        public bool isAdjacente(int Vert1, int Vert2)
+        public bool isAdjacente(Vertice Vert1, Vertice Vert2)
         {
             for (int i = 1; i < numVertice; i++)
             {
                 for (int j = 1; j < numVertice; j++)
                 {
-                    if (matadj[Vert1, Vert2] == 1)
+                    if (matadj[Vert1.Vert, Vert2.Vert] == 1)
                     {
-                        Console.WriteLine("Os vertices {0} e {1} sao adjacentes", Vert1, Vert2);
+                        Console.WriteLine("Os vertices {0} e {1} sao adjacentes", Vert1.Vert, Vert2.Vert);
                         return true;
                     }
                 }
@@ -112,16 +115,16 @@ namespace Grafos
         }
 
        
-        public List<int> adjacentes(int vertice)
+        public List<Vertice> adjacentes(Vertice vertice)
         {
-            List<int> adjacentes = new List<int>();
+            List<Vertice> adjacentes = new List<Vertice>();
             //Console.WriteLine("Vertices adjacentes a {0}: " ,vertice);
 
             for (int j = 1; j < numVertice; j++)
             {
-                if (matadj[vertice,j] > 0)
+                if (matadj[vertice.Vert,j] > 0)
                 {
-                    adjacentes.Add(j);
+                    adjacentes.Add(new Vertice(j));
                     //Console.WriteLine(j + " ");
                 }
             }
@@ -130,14 +133,14 @@ namespace Grafos
             return adjacentes;
         }
         //Lembrando que e preciso terminar a matriz de adjacencia para fazer o grau
-        public int getGrau(int vertice)
+        public int getGrau(Vertice vertice)
         {
             int grau = 0;
            
                 for (int j = 1; j < this.numVertice; j++)
                 {
 
-                    if (matadj[vertice, j] == 1)
+                    if (matadj[vertice.Vert, j] == 1)
                     {
                         grau ++;
                         
@@ -157,42 +160,42 @@ namespace Grafos
 
         }
 
-        public int visitaDFS(int u, int tempo, int[] cores)
+        public int visitaDFS(Vertice u, int tempo, int[] cores)
         {
             // ArrayList<Objects> prop = new ArrayList<>();
             int branco = 0, cinza = 1, preto = 2;
-            int v;
+            Vertice v;
             tempo++;
-            tDescoberta[u] = tempo;
-            cores[u] = cinza;
-            componente[u] = componentes;
+            tDescoberta[u.Vert] = tempo;
+            cores[u.Vert] = cinza;
+            componente[u.Vert] = componentes;
            
             for (int k = 1; k < adjacentes(u).Count; k++)
             {
                 v = adjacentes(u)[k];
                 //Console.WriteLine(". " + u + " -" + cores[v] + "/");
-                if (cores[v] == branco)
+                if (cores[v.Vert] == branco)
                 {
-                    pais[v] = u;
+                    pais[v.Vert] = u;
                     tempo = visitaDFS(v, tempo, cores);
                 }
-                else if (cores[v] == cinza)
+                else if (cores[v.Vert] == cinza)
                 {
-                    Console.WriteLine("*Aresta de retorno: (" + u + "," + v + ")");
+                    Console.WriteLine("*Aresta de retorno: (" + u.Vert + "," + v.Vert + ")");
                 }
 
             }
               //Console.WriteLine("u: " + u+ "/  " );
-            cores[u] = preto;
+            cores[u.Vert] = preto;
             //sort = u + sort;
             tempo++;
-            tTermino[u] = tempo;
+            tTermino[u.Vert] = tempo;
             //Console.WriteLine("-------");
             //Console.WriteLine("sort: " + sort);
             return tempo;
         }
        
-        public int[] buscaEmProfundidade()
+        public Vertice[] buscaEmProfundidade()
         {
             int branco = 0, cinza = 1, preto = 2;
             int[] cores = new int[numVertice];
@@ -204,7 +207,7 @@ namespace Grafos
                 cores[i] = branco;
                 tDescoberta[i] = -1;
                 tTermino[i] = -1;
-                pais[i] = -1;
+                pais[i] = new Vertice(-1);
                 componente[i] = -1;
             }
             componentes = 1;
@@ -214,7 +217,7 @@ namespace Grafos
                 //Console.WriteLine("u " + u + "esta cor " + cores[u]);
                 if (cores[u] == branco)
                 {
-                    tempo = visitaDFS(u, tempo, cores);
+                    tempo = visitaDFS(new Vertice(u), tempo, cores);
                     componentes++;
                 }
                 else if (cores[u] == cinza)
@@ -241,12 +244,66 @@ namespace Grafos
             }
             else
             {
-                Console.WriteLine(aux);
                 Console.WriteLine("\nO grafo e conexo");
                 return true;
             }
-            return false;
         }
+
+        public bool isPendente(Vertice v)
+        {
+            return Array.Exists(pais, p => p.Equals(v));
+        }
+
+        public List<Aresta> arestasPorVertice(Vertice v)
+        {
+            return arestas.Where(a => a.Vert1.Equals(v)).ToList();
+        }
+
+        public Aresta menorPeso(List<Aresta> arestas)
+        {
+            return arestas.Aggregate((min, a) => a.Peso < min.Peso ? a : min);
+        }
+
+        public Grafo getAGMPrim()
+        {
+            List<Vertice> vertices = new List<Vertice>() { this.vertices.First() };
+            List<Aresta> usadas = new List<Aresta>();
+            Grafo arvore = new Grafo(this.vertices.Count()+1);
+            arvore.adicionarVertice(this.vertices.First());
+            while (this.vertices.Intersect(vertices).Count() < this.vertices.Count())
+            {
+                List<Aresta> disponiveis = new List<Aresta>();
+                foreach (Vertice v in vertices) disponiveis = disponiveis.Concat(arestasPorVertice(v)).ToList();
+                disponiveis = disponiveis.Where(a => !usadas.Contains(a)).ToList();
+                var menor = menorPeso(disponiveis);
+                usadas.Add(menor);
+                vertices.Add(menor.Vert2);
+                arvore.adicionarVertice(menor.Vert2);
+                arvore.adicionarAresta(menor.Vert1, menor.Vert2, menor.Peso);
+            }
+            return arvore;
+        }
+
+        public Grafo getAGMKruskal()
+        {
+            List<Vertice> vertices = new List<Vertice>();
+            Grafo arvore = new Grafo(this.vertices.Count() + 1);
+            List<Aresta> usadas = new List<Aresta>();
+            List<Aresta> disponiveis = this.arestas;
+            while (this.vertices.Intersect(vertices).Count() < this.vertices.Count())
+            {
+                disponiveis = disponiveis.Where(a => !usadas.Contains(a)).ToList();
+                var menor = menorPeso(disponiveis);
+                usadas.Add(menor);
+                vertices.Add(menor.Vert1);
+                vertices.Add(menor.Vert2);
+                arvore.adicionarVertice(menor.Vert1);
+                arvore.adicionarVertice(menor.Vert2);
+                arvore.adicionarAresta(menor.Vert1, menor.Vert2, menor.Peso);
+            }
+            return arvore;
+        }
+
         /*public void tarjan()
         {
             int cont = 0;

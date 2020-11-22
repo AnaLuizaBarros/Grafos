@@ -26,12 +26,12 @@ namespace Grafos
             this.direcao = direcao;
         }
 
-        public Vertice Vert1 { get; set; }
+        public Vertice Vert1 { get { return vert1; } }
 
-        public Vertice Vert2 { get; set; }
+        public Vertice Vert2 { get { return vert2; } }
 
-        public int Peso { get; set; }
+        public int Peso { get { return peso; } }
 
-        public int Direcao { get; set; }
+        public int Direcao { get { return direcao; } }
     }
 }

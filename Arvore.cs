@@ -27,7 +27,7 @@ namespace Grafos
 
         private Arvore inserirFilho(Arvore arvore, Vertice v1, Vertice v2)
         {
-            if (v1 == arvore.Raiz) arvore.filhos.Add(new Arvore(v2, arvore.Raiz));
+            if (v1.Equals(arvore.Raiz)) arvore.filhos.Add(new Arvore(v2, arvore.Raiz));
             else foreach (Arvore arvore1 in arvore.filhos) return inserirFilho(arvore1, v1, v2);
             return arvore;
         }
