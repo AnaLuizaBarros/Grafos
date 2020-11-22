@@ -9,7 +9,7 @@ namespace Grafos
     {
         public List<Aresta> arestas = new List<Aresta>();
         public List<int> vertices = new List<int>();
-        //public LinkedList<int>[] arestas2 = new LinkedList<int>[5];
+        public LinkedList<int>[] arestas2 = new LinkedList<int>[5];
         private int[,] matadj;
         public int numVertice;
         private int[] tDescoberta;
@@ -41,18 +41,17 @@ namespace Grafos
 
         public void adicionarVertice(int vertice)
         {
-            foreach (var item in vertices)
+            //int grau = getGrau(vertice);
+            //Vertice v = new Vertice(vertice, grau);
+            if (vertices.Contains(vertice))
             {
-                if (vertice == item)
-                {
-                   
-                }
-                else
-                {
-                    vertices.Add(vertice);
-                }
+
             }
-           
+            else vertices.Add(vertice);
+            
+            
+            
+            //Console.WriteLine("Numero de vertices adicionados :" +vertices.Count);    
         }
         public void adicionarAresta(int Vert1, int Vert2, int peso)
         {
@@ -60,11 +59,11 @@ namespace Grafos
             matadj[Vert2, Vert1] = 1;
             Aresta aresta = new Aresta(Vert1, Vert2, peso);
             arestas.Add(aresta);
-            /*if(arestas2[Vert1] == null)
+            if(arestas2[Vert1] == null)
             {
                 arestas2[Vert1] = new LinkedList<int>();
             }
-            arestas2[Vert1].AddLast(Vert2);*/
+            arestas2[Vert1].AddLast(Vert2);
             
         }
         public void adicionarArestaDirigida(int Vert1, int Vert2, int peso, int direcao)
@@ -73,6 +72,7 @@ namespace Grafos
             matadj[Vert2, Vert1] = 1;
             Aresta aresta = new Aresta(Vert1, Vert2, peso, direcao);
             arestas.Add(aresta);
+            
           
         }
         public void printarmatriz()
@@ -128,22 +128,28 @@ namespace Grafos
             return adjacentes;
         }
         //Lembrando que e preciso terminar a matriz de adjacencia para fazer o grau
-        public int getGrau(int Vert1)
+        public int getGrau(int vertice)
         {
-            int grau = 0;      
+            int grau = 0;
+           
                 for (int j = 1; j < this.numVertice; j++)
                 {
 
-                    if (matadj[Vert1, j] == 1)
+                    if (matadj[vertice, j] == 1)
                     {
-                       grau++;
+                        grau ++;
+                        
                     }
                 }
+            //Console.WriteLine("Grau do vertice {0} e {1} ", vertice, grau);
             
-            Console.WriteLine("Grau do vertice {0} e {1} ", Vert1, grau);
+
+
+
             return grau;
 
         }
+       
       
 
         public int visitaDFS(int u, int tempo, int[] cores)

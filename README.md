@@ -7,10 +7,10 @@
 
 * [x] bool isAdjacente (Vertice v1, Vertice v2); -- Jonathan
 * [x] int getGrau (Vertice v1); -- Ana 
-* [x] bool isIsolado (Vertice v1);  -- Victor
+* [ ] bool isIsolado (Vertice v1);  -- Victor
 * [ ] bool isPendente (Vertice v1);  -- Lucas
 * [ ] bool isRegular ();  -- Douglas
-* [x] bool isNulo ();  -- Victor
+* [ ] bool isNulo ();  -- Victor
 * [ ] bool isCompleto ();  -- Douglas
 * [ ] bool isConexo ();  -- Victor
 * [ ] bool isEuleriano (); -- Ana  

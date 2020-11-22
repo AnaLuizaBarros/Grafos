@@ -9,6 +9,7 @@ namespace Grafos
         {
             string[] leitor = File.ReadAllLines("teste.txt");
             Grafo nv = new Grafo(Convert.ToInt32(leitor[0]) + 1);
+            
             foreach (string linha in leitor)
             {
                 string[] corte = linha.Split(';');
@@ -55,8 +56,9 @@ namespace Grafos
                         nv.adicionarVertice(Vert1);
                         nv.adicionarVertice(Vert2);
                         nv.adicionarAresta(Vert1, Vert2, peso);
-                        nv.isAdjacente(Vert1, Vert2);
-                        nv.getGrau(1); // apenas teste
+                        nv.isAdjacente(Vert1, Vert2);                        
+                        nv.getGrau(Vert1); // apenas teste
+                        nv.getGrau(Vert2);
                         nv.adjacentes(Vert1);
                        
                     }
@@ -67,8 +69,13 @@ namespace Grafos
 
 
             }
+            foreach (var item in nv.vertices)
+            {
+                
+                Console.WriteLine("O grau do vertice {0} = {1}", item, nv.getGrau(item));
+            }
             nv.printarmatriz();
-            nv.buscaEmProfundidade();
+           
             
             
 
