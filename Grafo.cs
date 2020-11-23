@@ -66,8 +66,6 @@ namespace Grafos
             matadj[Vert2.Vert, Vert1.Vert] = 1;
             Aresta aresta = new Aresta(Vert1, Vert2, peso);
             arestas.Add(aresta);
-            
-            
         }
         public void adicionarArestaDirigida(Vertice Vert1, Vertice Vert2, int peso, int direcao)
         {
@@ -251,12 +249,15 @@ namespace Grafos
 
         public bool isPendente(Vertice v)
         {
-            return Array.Exists(pais, p => p.Equals(v));
+            int counter = 0;
+            for (int i = 1; i < matadj.GetLength(0); ++i) if (matadj[v.Vert, i] == 0) counter++;
+            if (counter == 1) return true;
+            else return false;
         }
 
         public List<Aresta> arestasPorVertice(Vertice v)
         {
-            return arestas.Where(a => a.Vert1.Equals(v)).ToList();
+            return arestas.Where(a => a.Vert1.Equals(v) || a.Vert2.Equals(v)).ToList();
         }
 
         public Aresta menorPeso(List<Aresta> arestas)
@@ -270,16 +271,28 @@ namespace Grafos
             List<Aresta> usadas = new List<Aresta>();
             Grafo arvore = new Grafo(this.vertices.Count()+1);
             arvore.adicionarVertice(this.vertices.First());
-            while (this.vertices.Intersect(vertices).Count() < this.vertices.Count())
+            while (vertices.Count() < this.vertices.Count())
             {
                 List<Aresta> disponiveis = new List<Aresta>();
                 foreach (Vertice v in vertices) disponiveis = disponiveis.Concat(arestasPorVertice(v)).ToList();
                 disponiveis = disponiveis.Where(a => !usadas.Contains(a)).ToList();
                 var menor = menorPeso(disponiveis);
                 usadas.Add(menor);
-                vertices.Add(menor.Vert2);
-                arvore.adicionarVertice(menor.Vert2);
-                arvore.adicionarAresta(menor.Vert1, menor.Vert2, menor.Peso);
+                if (vertices.Contains(menor.Vert1) && vertices.Contains(menor.Vert2)) { }
+                else {
+                    if (vertices.Contains(menor.Vert2))
+                    {
+                        vertices.Add(menor.Vert1);
+                        arvore.adicionarVertice(menor.Vert1);
+                        arvore.adicionarAresta(menor.Vert1, menor.Vert2, menor.Peso);
+                    }
+                    else if (vertices.Contains(menor.Vert1))
+                    {
+                        vertices.Add(menor.Vert2);
+                        arvore.adicionarVertice(menor.Vert2);
+                        arvore.adicionarAresta(menor.Vert1, menor.Vert2, menor.Peso);
+                    }
+                }
             }
             return arvore;
         }
@@ -289,17 +302,18 @@ namespace Grafos
             List<Vertice> vertices = new List<Vertice>();
             Grafo arvore = new Grafo(this.vertices.Count() + 1);
             List<Aresta> usadas = new List<Aresta>();
-            List<Aresta> disponiveis = this.arestas;
-            while (this.vertices.Intersect(vertices).Count() < this.vertices.Count())
+            List<Aresta> disponiveis = arestas;
+            while (vertices.Count() < this.vertices.Count())
             {
                 disponiveis = disponiveis.Where(a => !usadas.Contains(a)).ToList();
                 var menor = menorPeso(disponiveis);
                 usadas.Add(menor);
-                vertices.Add(menor.Vert1);
-                vertices.Add(menor.Vert2);
                 arvore.adicionarVertice(menor.Vert1);
                 arvore.adicionarVertice(menor.Vert2);
-                arvore.adicionarAresta(menor.Vert1, menor.Vert2, menor.Peso);
+                if(!(vertices.Contains(menor.Vert1) && vertices.Contains(menor.Vert2))) arvore.adicionarAresta(menor.Vert1, menor.Vert2, menor.Peso);
+                if(!vertices.Contains(menor.Vert1)) vertices.Add(menor.Vert1);
+                if(!vertices.Contains(menor.Vert2)) vertices.Add(menor.Vert2);
+                Console.WriteLine(menor.Vert1.Vert + "-" + menor.Vert2.Vert);
             }
             return arvore;
         }
