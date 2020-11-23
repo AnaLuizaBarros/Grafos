@@ -98,7 +98,7 @@ namespace Grafos
                 else Console.WriteLine("Não e Unicursal");         
                 Grafo arvore = nv.getAGMPrim();
                 Grafo arvore2 = nv.getAGMKruskal();
-                Console.WriteLine("Matriz da prim");
+                Console.WriteLine("\n Matriz da prim");
                 Console.WriteLine(arvore.printarMatriz());
                 Console.WriteLine("Matriz da Kruskal");
                 Console.WriteLine(arvore2.printarMatriz());
