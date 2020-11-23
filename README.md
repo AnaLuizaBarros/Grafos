@@ -21,6 +21,6 @@
 
 **Para grafos dirigidos**
 
-* [ ] int getGrauEntrada (Vertice v1); -- A definir
-* [ ] int getGrauSaida (Vertice v1); -- A definir
-* [ ] bool hasCiclo (); -- Jonathan
+* [x] int getGrauEntrada (Vertice v1); -- Ana
+* [x] int getGrauSaida (Vertice v1); -- Ana
+* [x] bool hasCiclo (); -- Ana

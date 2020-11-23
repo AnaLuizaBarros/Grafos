@@ -18,8 +18,7 @@ namespace Grafos
         private Vertice[] pais;
         private int[] componente;
         private int componentes;
-        private bool[] ponto;
-        private bool[,] ponte;
+        private bool ciclo;
        
 
         public int NumVertice { get; set; }
@@ -160,6 +159,7 @@ namespace Grafos
 
         public int visitaDFS(Vertice u, int tempo, int[] cores)
         {
+  
             // ArrayList<Objects> prop = new ArrayList<>();
             int branco = 0, cinza = 1, preto = 2;
             Vertice v;
@@ -179,7 +179,8 @@ namespace Grafos
                 }
                 else if (cores[v.Vert] == cinza)
                 {
-                    Console.WriteLine("*Aresta de retorno: (" + u.Vert + "," + v.Vert + ")");
+                    ciclo = true;
+                    //Console.WriteLine("*Aresta de retorno: (" + u.Vert + "," + v.Vert + ")");
                 }
 
             }
@@ -195,6 +196,7 @@ namespace Grafos
        
         public Vertice[] buscaEmProfundidade()
         {
+        
             int branco = 0, cinza = 1, preto = 2;
             int[] cores = new int[numVertice];
             //inicializacoes
@@ -359,8 +361,79 @@ namespace Grafos
         }*/
         public int getCutVertices()
         {
-            return 0;
+            int corte = 0;
+            Console.Write("\nVértices:");
+            for (int i = 0; i < vertices.Count; i++)
+            {
+                List<Vertice> lista_V2 = new List<Vertice>();
+                List<Aresta> lista_A2 = new List<Aresta>();
+
+                for (int j = 0; j < vertices.Count; j++)
+                {
+                    if (vertices[j] != vertices[i])
+                        lista_V2.Add(vertices[j]); 
+                }
+                for (int k = 0; k < arestas.Count; k++)
+                {
+                    if (arestas[k].Vert1 != vertices[i] && arestas[k].Vert2 != vertices[i])
+                        lista_A2.Add(arestas[k]); 
+                }
+                buscaEmProfundidade();
+
+                int aux = 0;
+
+                for (int p = 1; p < numVertice; p++)
+                {
+                    aux = componente[p];
+                }
+                if (aux > 1)
+                {
+                    Console.Write("\t " + vertices[i].Vert);
+                    corte++;
+                }
+
+
+            }
+            return corte;
         }
-        
+
+
+
+        public int getGrauEntrada(Vertice v1) {
+            int entrada = 0;
+            foreach (var item in arestas)
+            {
+           
+                if ( item.Direcao == 1 && item.Vert2.Vert == v1.Vert) {
+                    entrada++;
+                }
+                if (item.Direcao == -1 && item.Vert1.Vert == v1.Vert) {
+                    entrada++;
+                }
+                
+            }
+            return entrada;
+        }
+        public int getGrauSaida(Vertice v1)
+        {
+            int saida = 0;
+            foreach (var item in arestas)
+            {
+                if (item.Direcao == 1 && item.Vert1.Vert == v1.Vert)
+                {
+                    saida++;
+                }
+                if (item.Direcao == -1 && item.Vert2.Vert == v1.Vert)
+                {
+                    saida++;
+                }
+
+            }
+            return saida;
+        }
+        public bool hasCiclo() {
+            buscaEmProfundidade();
+            return ciclo;
+        }
     }
 }

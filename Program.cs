@@ -7,7 +7,7 @@ namespace Grafos
     {
         static void Main(string[] args)
         {
-            string[] leitor = File.ReadAllLines(@"../../../Teste.txt");
+            string[] leitor = File.ReadAllLines(@"../../../TesteDirigido.txt");
             Grafo nv = new Grafo(Convert.ToInt32(leitor[0]) + 1);
             bool naodirigido = true;
             foreach (string linha in leitor)
@@ -32,7 +32,10 @@ namespace Grafos
                         Vert2 = new Vertice(Convert.ToInt32(corte[1]));
                         peso = Convert.ToInt32(corte[2]);
                         direcao = Convert.ToInt32(corte[3]);
+                        nv.adicionarVertice(Vert1);
+                        nv.adicionarVertice(Vert2);
                         nv.adicionarArestaDirigida(Vert1, Vert2, peso, direcao);
+                     
                     }
                 }
                 else
@@ -59,6 +62,8 @@ namespace Grafos
                         nv.getGrau(Vert1); 
                         nv.getGrau(Vert2);
                         nv.adjacentes(Vert1);
+                        nv.getCutVertices();
+                       
                     }
                 }
             }
@@ -78,6 +83,20 @@ namespace Grafos
             else
             {
                 Console.WriteLine(nv.printarMatriz());
+                foreach (var item in nv.vertices)
+                {
+                    Console.WriteLine("O grau de entrada do vertice {0} = {1}", item.Vert, nv.getGrauEntrada(item));
+                    Console.WriteLine("O grau de saida do vertice {0} = {1}", item.Vert, nv.getGrauSaida(item));
+                }
+                if (nv.hasCiclo())
+                {
+                    Console.WriteLine("Este grafo possui ciclo");
+                }
+                else {
+                    Console.WriteLine("Este grafo não possui ciclo");
+                }
+
+
             }
 
             Console.ReadKey();
