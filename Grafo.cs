@@ -59,6 +59,14 @@ namespace Grafos
             
             //Console.WriteLine("Numero de vertices adicionados :" +vertices.Count);    
         }
+
+        public void removerAresta(Aresta aresta)
+        {
+            matadj[aresta.Vert1.Vert, aresta.Vert2.Vert] = 0;
+            matadj[aresta.Vert2.Vert, aresta.Vert1.Vert] = 0;
+            arestas.Remove(aresta);
+        }
+
         public void adicionarAresta(Vertice Vert1, Vertice Vert2, int peso)
         {
             matadj[Vert1.Vert, Vert2.Vert] = 1;
@@ -312,9 +320,10 @@ namespace Grafos
                 usadas.Add(menor);
                 arvore.adicionarVertice(menor.Vert1);
                 arvore.adicionarVertice(menor.Vert2);
-                if(!(vertices.Contains(menor.Vert1) && vertices.Contains(menor.Vert2))) arvore.adicionarAresta(menor.Vert1, menor.Vert2, menor.Peso);
+                if (!(vertices.Contains(menor.Vert1) && vertices.Contains(menor.Vert2))) arvore.adicionarAresta(menor.Vert1, menor.Vert2, menor.Peso);
                 if(!vertices.Contains(menor.Vert1)) vertices.Add(menor.Vert1);
                 if(!vertices.Contains(menor.Vert2)) vertices.Add(menor.Vert2);
+                
                 Console.WriteLine(menor.Vert1.Vert + "-" + menor.Vert2.Vert);
             }
             return arvore;
