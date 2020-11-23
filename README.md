@@ -17,7 +17,7 @@
 * [x] bool isUnicursal ();  -- Douglas
 * [x] Grafo getAGMPrim (Vertice v1)   -- Lucas
 * [x] Grafo getAGMKruskal (Vertice v1)  -- Lucas
-* [ ] int getCutVertices () -- Jonathan
+* [x] int getCutVertices () -- Jonathan
 
 **Para grafos dirigidos**
 
