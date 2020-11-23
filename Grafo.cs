@@ -347,7 +347,40 @@ namespace Grafos
         }*/
         public int getCutVertices()
         {
-            return 0;
+            int corte = 0;
+            Console.Write("\nVértices:");
+            for (int i = 0; i < vertices.Count; i++)
+            {
+                List<Vertice> lista_V2 = new List<Vertice>();
+                List<Aresta> lista_A2 = new List<Aresta>();
+
+                for (int j = 0; j < vertices.Count; j++)
+                {
+                    if (vertices[j] != vertices[i])
+                        lista_V2.Add(vertices[j]); 
+                }
+                for (int k = 0; k < arestas.Count; k++)
+                {
+                    if (arestas[k].Vert1 != vertices[i] && arestas[k].Vert2 != vertices[i])
+                        lista_A2.Add(arestas[k]); 
+                }
+                buscaEmProfundidade();
+
+                int aux = 0;
+
+                for (int p = 1; p < numVertice; p++)
+                {
+                    aux = componente[p];
+                }
+                if (aux > 1)
+                {
+                    Console.Write("\t " + vertices[i].Vert);
+                    corte++;
+                }
+
+
+            }
+            return corte;
         }
 
 

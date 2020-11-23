@@ -62,6 +62,7 @@ namespace Grafos
                         nv.getGrau(Vert1); 
                         nv.getGrau(Vert2);
                         nv.adjacentes(Vert1);
+                        nv.getCutVertices();
                        
                     }
                 }
